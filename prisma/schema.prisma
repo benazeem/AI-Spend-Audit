@@ -1,0 +1,31 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Audit {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  companyName  String? @map("company_name")
+  contactEmail String? @map("contact_email")
+  teamSize     Int?    @map("team_size")
+
+  toolsData Json @map("tools_data")
+
+  totalMonthlySpend  Float  @map("total_monthly_spend")
+  projectedSavings   Float  @map("projected_savings")
+  recommendations    Json   
+  aiSummary          String? @map("ai_summary") 
+
+  shareToken String  @unique @map("share_token") 
+  isPublic   Boolean @default(false) @map("is_public")
+
+  @@map("audits")
+}
